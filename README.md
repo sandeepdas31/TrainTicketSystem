@@ -9,7 +9,7 @@ Golang
 # framework used
 GRPC
 
-# Stating the application
+# Starting the application
 To run the code use the command  - go run main.go
 
 The API's can be fired using two ways,
