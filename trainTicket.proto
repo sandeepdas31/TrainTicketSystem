@@ -1,0 +1,59 @@
+syntax = "proto3";
+option go_package = "github.com/trainTicketBooking/TrainTicket";
+
+message JourneyDetails {
+    string From = 1;
+    string To = 2;
+}
+
+message BookingRequest {
+    JourneyDetails journeyDetails = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string email = 4 ;
+}
+
+message BookingResponse {
+    JourneyDetails journeyDetails = 1;
+    string user = 2;
+    string pricePaid =3 ;
+    string ticketID = 4;
+    string seatNo = 5; 
+}
+
+message TicketDetails {
+    string ticketID = 1; 
+}
+
+message SectionDetails {
+    string sectionID = 1; 
+}
+
+
+message CancellationResponse {
+    string cancellationResult =1;
+}
+
+message SeatAllotment {
+    repeated SeatAllotmentArray seatAllotmentArray = 1;
+}
+    
+message SeatAllotmentArray{
+    string seatNo = 1; 
+    string user = 2;
+}
+
+message NoParam{}
+
+message AllBookings {
+    repeated BookingResponse bookingResponse = 1;
+}
+
+service TrainTicket {
+    rpc BookTicket(BookingRequest) returns (BookingResponse);
+    rpc CancelTicket(TicketDetails) returns (CancellationResponse);
+    rpc CheckTicketReceipt(TicketDetails) returns (BookingResponse);
+    rpc CheckTicketAllotment(SectionDetails) returns(SeatAllotment);
+    rpc ModifySeat(TicketDetails) returns(BookingResponse);
+    rpc GetAllTicketDetails(NoParam) returns(AllBookings);
+}
